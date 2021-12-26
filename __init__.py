@@ -4,27 +4,22 @@ from datetime import timedelta
 import logging
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant
-
-from .const import BASE_API_URL, DOMAIN, PSE_GRID_SERVICE
-
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_SCAN_INTERVAL, EVENT_HOMEASSISTANT_STARTED
 from homeassistant.core import CoreState, HomeAssistant
-from homeassistant.exceptions import ConfigEntryNotReady
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-from urllib import parse
-import urllib.request, json
-from homeassistant import config_entries, core
-from homeassistant.util import Throttle
-
-_LOGGER = logging.getLogger(__name__)
 
 from .const import (
-    DEFAULT_SCAN_INTERVAL,
+    BASE_API_URL,
     DOMAIN,
+    PSE_GRID_SERVICE,
+    DEFAULT_SCAN_INTERVAL,
     PLATFORMS,
 )
+
+from homeassistant.const import CONF_SCAN_INTERVAL, EVENT_HOMEASSISTANT_STARTED
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+import urllib.request
+import json
+
+_LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
@@ -66,7 +61,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
 
 
 class PseGridNetDataUpdater(DataUpdateCoordinator):
-    def __init__(self, hass: HomeAssistant, config_entry: ConfigEntry):
+    def __init__(self, hass: HomeAssistant, config_entry: ConfigEntry) -> None:
         self._hass = hass
         self.data_available = False
         self.json_output = None
