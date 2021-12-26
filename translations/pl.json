@@ -1,4 +1,15 @@
 {
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Ju\u017c skonfigurowano. Mo\u017cliwa jest tylko jedna konfiguracja.",
+            "wrong_server_id": "Identyfikator serwera jest nieprawid\u0142owy"
+        },
+        "step": {
+            "user": {
+                "description": "Czy chcesz rozpocz\u0105\u0107 konfiguracj\u0119?"
+            }
+        }
+    },
     "options": {
         "step": {
             "init": {
