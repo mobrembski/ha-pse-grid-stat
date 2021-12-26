@@ -1,4 +1,4 @@
-"""The Detailed Hello World Push integration."""
+"""The PSE Grid Stat integration."""
 from __future__ import annotations
 from datetime import timedelta
 import logging
@@ -28,11 +28,11 @@ from .const import (
 
 
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
-    """Set up the Speedtest.net component."""
+    """Set up the PSE Grid Stat component."""
     coordinator = PseGridNetDataUpdater(hass, config_entry)
     await coordinator.async_setup()
 
-    async def _enable_scheduled_speedtests(*_):
+    async def _enable_scheduled_pse_download(*_):
         """Activate the data update coordinator."""
         coordinator.update_interval = timedelta(
             minutes=config_entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
@@ -40,13 +40,10 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
         await coordinator.async_refresh()
 
     if hass.state == CoreState.running:
-        await _enable_scheduled_speedtests()
+        await _enable_scheduled_pse_download()
     else:
-        # Running a speed test during startup can prevent
-        # integrations from being able to setup because it
-        # can saturate the network interface.
         hass.bus.async_listen_once(
-            EVENT_HOMEASSISTANT_STARTED, _enable_scheduled_speedtests
+            EVENT_HOMEASSISTANT_STARTED, _enable_scheduled_pse_download
         )
 
     hass.data[DOMAIN] = coordinator
@@ -57,7 +54,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
 
 
 async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
-    """Unload SpeedTest Entry from config_entry."""
+    """Unload PSE Grid Stat Entry from config_entry."""
     hass.services.async_remove(DOMAIN, PSE_GRID_SERVICE)
 
     unload_ok = await hass.config_entries.async_unload_platforms(
@@ -91,7 +88,7 @@ class PseGridNetDataUpdater(DataUpdateCoordinator):
             self.data_available = True
 
     async def async_update(self) -> dict[str, str]:
-        """Update Speedtest data."""
+        """Update PSE Grid Stats data."""
         return await self._hass.async_add_executor_job(self._update_data)
 
     async def async_setup(self) -> None:

@@ -3,7 +3,7 @@
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/mobrembski/ha-pse-grid-stat",
-  "domain": "pse_grid_stat",
+  "domain": "ha-pse-grid-stat",
   "iot_class": "cloud_polling",
   "name": "Polish PSE Network Grid",
   "requirements": [],
