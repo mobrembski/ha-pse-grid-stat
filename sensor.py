@@ -63,7 +63,7 @@ class BaseSensorPSEEntity(CoordinatorEntity, SensorEntity):
             identifiers={(DOMAIN, self.coordinator.config_entry.entry_id)},
             name="PSE Grid",
             entry_type=DeviceEntryType.SERVICE,
-            configuration_url="https://www.speedtest.net/",
+            configuration_url="https://www.pse.pl/transmissionMapService",
         )
         self._name = entity_description.name
         self._state = None
@@ -119,10 +119,10 @@ class PowerStatePSEEntityDescr(CoordinatorEntity, BinarySensorEntity):
 
     @property
     def state(self):
-        difference = int(
-            self.coordinator.json_output["data"]["podsumowanie"]["generacja"]
-        ) - int(self.coordinator.json_output["data"]["podsumowanie"]["zapotrzebowanie"])
-        self._attr_state = "Exporting" if difference > 0 else "Importing"
+        difference = int(self.coordinator.json_output["data"]["podsumowanie"]["zapotrzebowanie"])
+        for direction in self.coordinator.json_output["data"]["przesyly"]:
+            difference = difference - int(direction["wartosc"])
+        self._attr_state = "Exporting" if difference < 0 else "Importing"
         return self._attr_state
 
     async def async_update(self):
@@ -149,7 +149,7 @@ class PowerStatePSEBinaryEntity(CoordinatorEntity, BinarySensorEntity):
             identifiers={(DOMAIN, self.coordinator.config_entry.entry_id)},
             name="PSE Grid",
             entry_type=DeviceEntryType.SERVICE,
-            configuration_url="https://www.speedtest.net/",
+            configuration_url="https://www.pse.pl/transmissionMapService",
         )
 
     @property
