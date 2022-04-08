@@ -119,9 +119,9 @@ class PowerStatePSEEntityDescr(CoordinatorEntity, BinarySensorEntity):
 
     @property
     def state(self):
-        difference = int(self.coordinator.json_output["data"]["podsumowanie"]["zapotrzebowanie"])
+        difference = 0
         for direction in self.coordinator.json_output["data"]["przesyly"]:
-            difference = difference - int(direction["wartosc"])
+            difference += int(direction["wartosc"])
         self._attr_state = "Exporting" if difference < 0 else "Importing"
         return self._attr_state
 
@@ -160,9 +160,9 @@ class PowerStatePSEBinaryEntity(CoordinatorEntity, BinarySensorEntity):
 
     @property
     def is_on(self):
-        difference = int(
-            self.coordinator.json_output["data"]["podsumowanie"]["generacja"]
-        ) - int(self.coordinator.json_output["data"]["podsumowanie"]["zapotrzebowanie"])
+        difference = 0;
+        for direction in self.coordinator.json_output["data"]["przesyly"]:
+            difference += int(direction["wartosc"])
         return difference > 0
 
     async def async_update(self):
