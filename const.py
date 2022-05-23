@@ -4,7 +4,7 @@ from homeassistant.components.sensor import SensorEntityDescription, SensorState
 
 from homeassistant.const import Platform
 
-DOMAIN = "ha-pse-grid-stat"
+DOMAIN = "ha_pse_grid_stat"
 
 BASE_API_URL = "https://www.pse.pl/transmissionMapService"
 

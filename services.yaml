@@ -1,3 +1,3 @@
-ha-pse-grid-stat:
+ha_pse_grid_stat:
   name: PSE Grid Stat
   description: Immediately refresh statistics

@@ -1,4 +1,4 @@
-# ha-pse-grid-stat
+# ha_pse_grid_stat
 ## Home assistant Polish Energetic Grid Statistics
 
 This is a custom component which provides Polish energetic statistics based on

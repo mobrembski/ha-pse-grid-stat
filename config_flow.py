@@ -18,7 +18,7 @@ from .const import (
 
 
 class PSEGridFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle ha-pse-grid-stats config flow."""
+    """Handle ha_pse_grid_stats config flow."""
 
     VERSION = 1
 
@@ -44,7 +44,7 @@ class PSEGridFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
 
 class PSEGridOptionsFlowHandler(config_entries.OptionsFlow):
-    """Handle ha-pse-grid-stats options."""
+    """Handle ha_pse_grid_stats options."""
 
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         """Initialize options flow."""
