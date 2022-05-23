@@ -1,0 +1,7 @@
+{
+    "name": "Polish PSE Network Grid",
+    "domains": [
+        "sensor"
+    ],
+    "render_readme": true
+}

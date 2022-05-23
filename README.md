@@ -12,6 +12,10 @@ https://www.pse.pl/dane-systemowe
 - Go to **Settings->Integrations** click on **Add Integration**
 - Look for PSE Grid Stat
 
+OR
+
+Use HACS.xyz -> Add repository
+
 ## Screenshot
 
 ![Screenshot](screenshot.png "Screenshot")
